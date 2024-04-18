@@ -1,0 +1,22 @@
+:root {
+    --carbono_oscuro : #303030;
+    --gris_cine : #545454;
+    --plata_pantalla: #D9D9D9;
+    --rojo_premier: #FF0000;
+    --oro_estelar: #FFD700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color:  var(--carbono_oscuro);
+    margin-inline: 20%;
+    margin-block: 50px;
+}
+
+#login {
+    background-color: var(--plata_pantalla);
+}
