@@ -11,10 +11,6 @@
 
 <body>
 
-    <%
-        MySQLConnection mySQLConnection = new MySQLConnection();
-    %>
-
     <div id="login">
         <h1>Iniciar sesion</h1>
         <form action="">

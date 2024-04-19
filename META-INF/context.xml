@@ -1,2 +1,9 @@
-<Context path=""
-	antiResourceLocking="false" />
+<Context>
+	<!-- The contents of the context.xml file -->
+	<Resource name="jdbc/bd_peliculas" auth="Container"
+			  type="javax.sql.DataSource"
+			  driverClassName="com.mysql.jdbc.Driver"
+			  url="jdbc:mysql://localhost:3306/bd_peliculas"
+			  username="root" password="root"
+			  maxActive="10" maxIdle="4"/>
+</Context>
