@@ -1,22 +1,89 @@
 :root {
-    --carbono_oscuro : #303030;
-    --gris_cine : #545454;
+    --carbono_oscuro: #303030;
+    --gris_cine: #545454;
     --plata_pantalla: #D9D9D9;
     --rojo_premier: #FF0000;
     --oro_estelar: #FFD700;
+    --blanco: #fff;
+    --negro: #000;
 }
 
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color:  var(--carbono_oscuro);
-    margin-inline: 20%;
-    margin-block: 50px;
+    background-color: var(--carbono_oscuro);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 #login {
     background-color: var(--plata_pantalla);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+#login h1 {
+    margin-top: 0;
+    font-weight: bold;
+    color: var(--oro_estelar);
+}
+
+#login label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--gris_cine);
+}
+
+#login input[type="text"], #login input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#login button[type="submit"] {
+    background-color: var(--rojo_premier);
+    color: var(--blanco);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#login button[type="submit"]:hover {
+    background-color: var(--oro_estelar);
+}
+
+#login a {
+    text-decoration: none;
+    color: var(--gris_cine);
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    #login {
+        padding:40px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #login {
+        padding: 60px;
+    }
 }
