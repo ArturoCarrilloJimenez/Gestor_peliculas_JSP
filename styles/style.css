@@ -3,6 +3,7 @@
     --gris_cine: #545454;
     --plata_pantalla: #D9D9D9;
     --rojo_premier: #FF0000;
+    --azul_cinema: #007BFF;
     --oro_estelar: #FFD700;
     --blanco: #fff;
     --negro: #000;
@@ -24,29 +25,31 @@ body {
     margin: 0;
 }
 
-#login {
+/* index.jsp and register.jsp */
+
+#login, #register {
     background-color: var(--plata_pantalla);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     width: 100%;
+}
+
+#login {
     max-width: 400px;
 }
 
-#login h1 {
+#register {
+    max-width: 800px;
+}
+
+#login h1, #register h1 {
     margin-top: 0;
     font-weight: bold;
-    color: var(--oro_estelar);
+    color: var(--carbono_oscuro);
 }
 
-#login label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: var(--gris_cine);
-}
-
-#login input[type="text"], #login input[type="password"] {
+#login input[type="text"], #login input[type="password"], #register input[type="text"], #register input[type="password"], #register input[type="email"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -55,20 +58,22 @@ body {
     font-size: 16px;
 }
 
-#login button[type="submit"] {
+#login button[type="submit"], .buton_login {
     background-color: var(--rojo_premier);
     color: var(--blanco);
     padding: 10px 20px;
+    width: 100%;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-#login button[type="submit"]:hover {
-    background-color: var(--oro_estelar);
+#login button[type="submit"]:hover, .buton_login:hover{
+    background-color: var(--azul_cinema);
+    transition: 0.3s;
 }
 
-#login a {
+#login a, #register a {
     text-decoration: none;
     color: var(--gris_cine);
     display: block;
@@ -77,13 +82,87 @@ body {
 }
 
 @media (min-width: 768px) {
-    #login {
+    #login, #register {
         padding:40px;
     }
 }
 
 @media (min-width: 1024px) {
-    #login {
+    #login, #register {
         padding: 60px;
     }
+}
+
+/* indexMovies.jsp */
+
+.container {
+    background-color: var(--plata_pantalla);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    background-color: var(--plata_pantalla);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gris_cine);
+}
+
+.logo {
+    margin-right: 20px;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+.menu a {
+    color: var(--gris_cine);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    color: var(--azul_cinema);
+}
+
+.cuerpo {
+
+}
+
+.footer {
+    background-color: var(--plata_pantalla);
+    padding: 10px;
+    text-align: center;
+    color: var(--gris_cine);
+    border-top: 1px solid var(--gris_cine);
+}
+
+.footer p {
+    margin: 0;
 }

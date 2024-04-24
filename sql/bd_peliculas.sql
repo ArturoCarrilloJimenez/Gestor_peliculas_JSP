@@ -5,8 +5,11 @@ USE bd_peliculas;
 
 CREATE TABLE users (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE movies (
@@ -23,7 +26,9 @@ CREATE TABLE people (
     lastname VARCHAR(50) NOT NULL,
     yearOfBirth INT UNSIGNED NOT NULL,
     country VARCHAR(50) NOT NULL,
-    picture VARCHAR(250) NOT NULL
+    picture VARCHAR(250) NOT NULL,
+    
+    UNIQUE (firstname,lastname,yearOfBirth)
 );
 
 CREATE TABLE act (
@@ -46,102 +51,89 @@ CREATE TABLE direct (
     FOREIGN KEY (idPerson) REFERENCES people (id)
 );
 
-
-INSERT INTO users (name, password) VALUES
-('Sophia_Miller', 'Sm2024!'),
-('James.Johnson', 'Jjpassword123'),
-('Emma.Wilson', 'EmmaW2024'),
-('Michael.Brown', 'MikeB4321'),
-('Olivia.Smith', 'LivSmith22'),
-('Ethan.Roberts', 'EthanR2024'),
-('Isabella.Davis', 'BellaD2024!'),
-('Matthew.Thomas', 'MattyT123'),
-('Ava.Moore', 'AvaM2023'),
-('Daniel.Taylor', 'DanT4321'),
-('Mia.White', 'MiaW1234'),
-('Alexander.Jones', 'AlexJ2024'),
-('Charlotte.Green', 'Char2023G'),
-('Lucas.Clark', 'LucasC2024'),
-('Amelia.Harris', 'AmeliaH21'),
-('Benjamin.Martin', 'BenjM2024'),
-('Mason.Thompson', 'MasonT22'),
-('Harper.Garcia', 'HarpG2024'),
-('Elijah.Lopez', 'EliLopez123'),
-('Lily.Anderson', 'LilyA2023'),
-('Noah.Lee', 'NoahL4321'),
-('Grace.Hall', 'GraceH21'),
-('Logan.Young', 'LoganY2024'),
-('Zoe.King', 'ZoeK1234'),
-('Aiden.Wright', 'AidenW2024'),
-('Chloe.Scott', 'ChloeS23'),
-('Liam.Evans', 'LiamE2024'),
-('Emily.Hill', 'EmHill2024'),
-('Jacob.Turner', 'JakeT123'),
-('Madison.Phillips', 'MaddieP2023'),
-('Oliver.Campbell', 'OliverC21'),
-('Ava.Parker', 'AvaP2023!'),
-('William.Mitchell', 'WillM2024'),
-('Sophia.Jackson', 'SophieJ2022'),
-('James.Morris', 'JamesM123'),
-('Isabella.Lewis', 'BellaL2024'),
-('Michael.Robinson', 'MikeRob2023'),
-('Gabriel.Edwards', 'GabeE2024'),
-('Mia.Richardson', 'MiaRich21'),
-('Benjamin.Walker', 'BenW2023'),
-('Elijah.Allen', 'EliA2024'),
-('Harper.Young', 'HarperY22'),
-('Charlotte.Russell', 'CharR2024'),
-('Jack.Martinez', 'JackM4321'),
-('Olivia.Cox', 'LivC2023'),
-('Henry.Ward', 'HenryW24'),
-('Ava.Murphy', 'AvaM2024'),
-('Matthew.Morris', 'MattM2023'),
-('Zoe.Nelson', 'ZoeN123'),
-('Alexander.Carter', 'AlexC2024'),
-('Chloe.Morgan', 'ChloeM2024'),
-('Liam.Foster', 'LiamF2023'),
-('Grace.Reed', 'GraceR2024'),
-('Lucas.Bell', 'LucasB21'),
-('Mason.Baker', 'MasonB23'),
-('Amelia.Rivera', 'AmyR2024'),
-('Ethan.Cook', 'EthanC22'),
-('Elijah.Bailey', 'EliB2024'),
-('Aiden.Clark', 'AidenC123'),
-('Lily.Adams', 'LilyA2024'),
-('James.Diaz', 'JamesD21'),
-('Charlotte.Turner', 'LottieT22'),
-('Noah.Hughes', 'NoahH2023'),
-('Sophia.Price', 'SophP2024'),
-('Jacob.Bennett', 'JakeB2024'),
-('Madison.Wood', 'MaddieW21'),
-('Oliver.Perry', 'OliverP2023'),
-('William.Barnes', 'WillyB2024'),
-('Mia.Ross', 'MiaR4321'),
-('Alexander.Henderson', 'AlexH2023'),
-('Isabella.Palmer', 'BellaP22'),
-('Daniel.Jenkins', 'DanJ2024'),
-('Grace.Brooks', 'GraceB2023'),
-('Michael.Stewart', 'MikeS2024'),
-('Emily.Bell', 'EmilyB21'),
-('Gabriel.Coleman', 'GabeC2024'),
-('Chloe.Gray', 'ChloeG123'),
-('Liam.James', 'LiamJ2024'),
-('Jack.Peterson', 'JackP2023'),
-('Amelia.Sanders', 'AmeliaS22'),
-('Logan.Meyer', 'LoganM2024'),
-('Ava.Bishop', 'AvaB21'),
-('Lucas.Kennedy', 'LukeK2023'),
-('Mason.Grant', 'MasonG24'),
-('Zoe.Ward', 'ZoeW2024'),
-('Aiden.Fox', 'AidenF2023'),
-('Lily.Chapman', 'LilyC22'),
-('Ethan.Daniels', 'EthanD2024'),
-('Elijah.Marshall', 'EliM2023'),
-('Henry.ortiz', 'HenryO2024'),
-('Sophia.Gibson', 'SophieG21'),
-('James.Watson', 'JamesW2023'),
-('Charlotte.Ferguson', 'LottieF22'),
-('Noah.Rose', 'NoahR2024');
+INSERT INTO users (username, password, first_name, lastname, email) VALUES 
+('johndoe01', 'password123', 'John', 'Doe', 'johndoe01@example.com'),
+('janedoe02', 'password123', 'Jane', 'Doe', 'janedoe02@example.com'),
+('michaellee03', 'password123', 'Michael', 'Lee', 'michaellee03@example.com'),
+('sarahconnor04', 'password123', 'Sarah', 'Connor', 'sarahconnor04@example.com'),
+('jamesbond05', 'password123', 'James', 'Bond', 'jamesbond05@example.com'),
+('lisasmith06', 'password123', 'Lisa', 'Smith', 'lisasmith06@example.com'),
+('robertbrown07', 'password123', 'Robert', 'Brown', 'robertbrown07@example.com'),
+('laurawilson08', 'password123', 'Laura', 'Wilson', 'laurawilson08@example.com'),
+('kevinwhite09', 'password123', 'Kevin', 'White', 'kevinwhite09@example.com'),
+('mariagarcia10', 'password123', 'Maria', 'Garcia', 'mariagarcia10@example.com'),
+('davidmartin11', 'password123', 'David', 'Martin', 'davidmartin11@example.com'),
+('emmathompson12', 'password123', 'Emma', 'Thompson', 'emmathompson12@example.com'),
+('chrisevans13', 'password123', 'Chris', 'Evans', 'chrisevans13@example.com'),
+('jessicataylor14', 'password123', 'Jessica', 'Taylor', 'jessicataylor14@example.com'),
+('mikeross15', 'password123', 'Mike', 'Ross', 'mikeross15@example.com'),
+('sophiawilliams16', 'password123', 'Sophia', 'Williams', 'sophiawilliams16@example.com'),
+('brianmoore17', 'password123', 'Brian', 'Moore', 'brianmoore17@example.com'),
+('amandalopez18', 'password123', 'Amanda', 'Lopez', 'amandalopez18@example.com'),
+('steveclark19', 'password123', 'Steve', 'Clark', 'steveclark19@example.com'),
+('danielanderson20', 'password123', 'Daniel', 'Anderson', 'danielanderson20@example.com'),
+('elizabethmason21', 'password123', 'Elizabeth', 'Mason', 'elizabethmason21@example.com'),
+('johnrambo22', 'password123', 'John', 'Rambo', 'johnrambo22@example.com'),
+('sandycheeks23', 'password123', 'Sandy', 'Cheeks', 'sandycheeks23@example.com'),
+('tonystark24', 'password123', 'Tony', 'Stark', 'tonystark24@example.com'),
+('brucewayne25', 'password123', 'Bruce', 'Wayne', 'brucewayne25@example.com'),
+('clarkkent26', 'password123', 'Clark', 'Kent', 'clarkkent26@example.com'),
+('dianaprince27', 'password123', 'Diana', 'Prince', 'dianaprince27@example.com'),
+('peterparker28', 'password123', 'Peter', 'Parker', 'peterparker28@example.com'),
+('stevejobs29', 'password123', 'Steve', 'Jobs', 'stevejobs29@example.com'),
+('billgates30', 'password123', 'Bill', 'Gates', 'billgates30@example.com'),
+('elonmusk31', 'password123', 'Elon', 'Musk', 'elonmusk31@example.com'),
+('jeffbezos32', 'password123', 'Jeff', 'Bezos', 'jeffbezos32@example.com'),
+('markzuckerberg33', 'password123', 'Mark', 'Zuckerberg', 'markzuckerberg33@example.com'),
+('timcook34', 'password123', 'Tim', 'Cook', 'timcook34@example.com'),
+('sundarpichai35', 'password123', 'Sundar', 'Pichai', 'sundarpichai35@example.com'),
+('larrypage36', 'password123', 'Larry', 'Page', 'larrypage36@example.com'),
+('sergeybrin37', 'password123', 'Sergey', 'Brin', 'sergeybrin37@example.com'),
+('satyanadella38', 'password123', 'Satya', 'Nadella', 'satyanadella38@example.com'),
+('susanwojcicki39', 'password123', 'Susan', 'Wojcicki', 'susanwojcicki39@example.com'),
+('jackdorsey40', 'password123', 'Jack', 'Dorsey', 'jackdorsey40@example.com'),
+('evanwilliams41', 'password123', 'Evan', 'Williams', 'evanwilliams41@example.com'),
+('bizstone42', 'password123', 'Biz', 'Stone', 'bizstone42@example.com'),
+('traviskalanick43', 'password123', 'Travis', 'Kalanick', 'traviskalanick43@example.com'),
+('garrettcamp44', 'password123', 'Garrett', 'Camp', 'garrettcamp44@example.com'),
+('danielzhang45', 'password123', 'Daniel', 'Zhang', 'danielzhang45@example.com'),
+('maclark46', 'password123', 'Ma', 'Clark', 'maclark46@example.com'),
+('jerrychen47', 'password123', 'Jerry', 'Chen', 'jerrychen47@example.com'),
+('davidkarp48', 'password123', 'David', 'Karp', 'davidkarp48@example.com'),
+('marissamayer49', 'password123', 'Marissa', 'Mayer', 'marissamayer49@example.com'),
+('megwhitman50', 'password123', 'Meg', 'Whitman', 'megwhitman50@example.com'),
+('annewilliams51', 'password123', 'Anne', 'Williams', 'annewilliams51@example.com'),
+('joeblack52', 'password123', 'Joe', 'Black', 'joeblack52@example.com'),
+('sarahparker53', 'password123', 'Sarah', 'Parker', 'sarahparker53@example.com'),
+('roberthughes54', 'password123', 'Robert', 'Hughes', 'roberthughes54@example.com'),
+('monicagreen55', 'password123', 'Monica', 'Green', 'monicagreen55@example.com'),
+('larrysanders56', 'password123', 'Larry', 'Sanders', 'larrysanders56@example.com'),
+('dianeking57', 'password123', 'Diana', 'King', 'dianeking57@example.com'),
+('stevebrown58', 'password123', 'Steve', 'Brown', 'stevebrown58@example.com'),
+('juliaroberts59', 'password123', 'Julia', 'Roberts', 'juliaroberts59@example.com'),
+('davemorris60', 'password123', 'Dave', 'Morris', 'davemorris60@example.com'),
+('emilywhite61', 'password123', 'Emily', 'White', 'emilywhite61@example.com'),
+('michaelhall62', 'password123', 'Michael', 'Hall', 'michaelhall62@example.com'),
+('laracooper63', 'password123', 'Lara', 'Cooper', 'laracooper63@example.com'),
+('justinlong64', 'password123', 'Justin', 'Long', 'justinlong64@example.com'),
+('vanessaking65', 'password123', 'Vanessa', 'King', 'vanessaking65@example.com'),
+('ethanwright66', 'password123', 'Ethan', 'Wright', 'ethanwright66@example.com'),
+('isabellayoung67', 'password123', 'Isabella', 'Young', 'isabellayoung67@example.com'),
+('oliverlewis68', 'password123', 'Oliver', 'Lewis', 'oliverlewis68@example.com'),
+('ameliahall69', 'password123', 'Amelia', 'Hall', 'ameliahall69@example.com'),
+('jackriver70', 'password123', 'Jack', 'River', 'jackriver70@example.com'),
+('charlottemartin71', 'password123', 'Charlotte', 'Martin', 'charlottemartin71@example.com'),
+('nathanhill72', 'password123', 'Nathan', 'Hill', 'nathanhill72@example.com'),
+('gracewhite73', 'password123', 'Grace', 'White', 'gracewhite73@example.com'),
+('ryanknight74', 'password123', 'Ryan', 'Knight', 'ryanknight74@example.com'),
+('chloewalker75', 'password123', 'Chloe', 'Walker', 'chloewalker75@example.com'),
+('benclark76', 'password123', 'Ben', 'Clark', 'benclark76@example.com'),
+('miascott77', 'password123', 'Mia', 'Scott', 'miascott77@example.com'),
+('lucaswright78', 'password123', 'Lucas', 'Wright', 'lucaswright78@example.com'),
+('sofiacarter79', 'password123', 'Sofia', 'Carter', 'sofiacarter79@example.com'),
+('masonmiller80', 'password123', 'Mason', 'Miller', 'masonmiller80@example.com'),
+-- Continúa con más entradas...
+('aaronlee250', 'password123', 'Aaron', 'Lee', 'aaronlee250@example.com');
 
 INSERT INTO movies (title, year, duration, poster) VALUES
 ('The Great Escape', 1963, 172, 'https://example.com/posters/thegreatescape.jpg'),
@@ -265,90 +257,73 @@ INSERT INTO movies (title, year, duration, poster) VALUES
 ('Strange World', 2022, 102, 'https://example.com/posters/strangeworld.jpg'),
 ('Elemental', 2023, 90, 'https://example.com/posters/elemental.jpg');
 
--- Insertar directores y actores para "The Matrix"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Lana', 'Wachowski', 1965, 'USA', 'url_to_lana_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Lilly', 'Wachowski', 1967, 'USA', 'url_to_lilly_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Keanu', 'Reeves', 1964, 'Lebanon', 'url_to_keanu_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Laurence', 'Fishburne', 1961, 'USA', 'url_to_laurence_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Carrie-Anne', 'Moss', 1967, 'Canada', 'url_to_car');
+INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES
+('Tom', 'Hanks', 1956, 'USA', 'https://example.com/pictures/tom-hanks.jpg'),
+('Leonardo', 'DiCaprio', 1974, 'USA', 'https://example.com/pictures/leonardo-dicaprio.jpg'),
+('Kate', 'Winslet', 1975, 'UK', 'https://example.com/pictures/kate-winslet.jpg'),
+('Christian', 'Bale', 1974, 'UK', 'https://example.com/pictures/christian-bale.jpg'),
+('Brad', 'Pitt', 1963, 'USA', 'https://example.com/pictures/brad-pitt.jpg'),
+('Natalie', 'Portman', 1981, 'Israel/USA', 'https://example.com/pictures/natalie-portman.jpg'),
+('Morgan', 'Freeman', 1937, 'USA', 'https://example.com/pictures/morgan-freeman.jpg'),
+('Scarlett', 'Johansson', 1984, 'USA', 'https://example.com/pictures/scarlett-johansson.jpg'),
+('Robert', 'Downey Jr.', 1965, 'USA', 'https://example.com/pictures/robert-downey-jr.jpg'),
+('Angelina', 'Jolie', 1975, 'USA', 'https://example.com/pictures/angelina-jolie.jpg'),
+('Emma', 'Watson', 1990, 'UK', 'https://example.com/pictures/emma-watson.jpg'),
+('Michael', 'Bay', 1965, 'USA', 'https://example.com/pictures/michael-bay.jpg'),
+('Keira', 'Knightley', 1985, 'UK', 'https://example.com/pictures/keira-knightley.jpg'),
+('Johnny', 'Depp', 1963, 'USA', 'https://example.com/pictures/johnny-depp.jpg'),
+('Tim', 'Burton', 1958, 'USA', 'https://example.com/pictures/tim-burton.jpg'),
+('Meryl', 'Streep', 1949, 'USA', 'https://example.com/pictures/meryl-streep.jpg'),
+('Jennifer', 'Lawrence', 1990, 'USA', 'https://example.com/pictures/jennifer-lawrence.jpg'),
+('Chris', 'Hemsworth', 1983, 'Australia', 'https://example.com/pictures/chris-hemsworth.jpg'),
+('Mark', 'Ruffalo', 1967, 'USA', 'https://example.com/pictures/mark-ruffalo.jpg'),
+('Cate', 'Blanchett', 1969, 'Australia', 'https://example.com/pictures/cate-blanchett.jpg'),
+('Christopher', 'Nolan', 1970, 'UK', 'https://example.com/pictures/christopher-nolan.jpg'),
+('Quentin', 'Tarantino', 1963, 'USA', 'https://example.com/pictures/quentin-tarantino.jpg'),
+('Sofia', 'Coppola', 1971, 'USA', 'https://example.com/pictures/sofia-coppola.jpg'),
+('Martin', 'Scorsese', 1942, 'USA', 'https://example.com/pictures/martin-scorsese.jpg'),
+('Wes', 'Anderson', 1969, 'USA', 'https://example.com/pictures/wes-anderson.jpg'),
+('Steven', 'Spielberg', 1946, 'USA', 'https://example.com/pictures/steven-spielberg.jpg'),
+('Kathryn', 'Bigelow', 1951, 'USA', 'https://example.com/pictures/kathryn-bigelow.jpg'),
+('James', 'Cameron', 1954, 'Canada', 'https://example.com/pictures/james-cameron.jpg'),
+('Guillermo', 'del Toro', 1964, 'Mexico', 'https://example.com/pictures/guillermo-del-toro.jpg'),
+('Ang', 'Lee', 1954, 'Taiwan', 'https://example.com/pictures/ang-lee.jpg'),
+('Alejandro', 'González Iñárritu', 1963, 'Mexico', 'https://example.com/pictures/alejandro-gonzalez-inarritu.jpg'),
+('David', 'Fincher', 1962, 'USA', 'https://example.com/pictures/david-fincher.jpg'),
+('Ridley', 'Scott', 1937, 'UK', 'https://example.com/pictures/ridley-scott.jpg'),
+('J.J.', 'Abrams', 1966, 'USA', 'https://example.com/pictures/jj-abrams.jpg'),
+('Peter', 'Jackson', 1961, 'New Zealand', 'https://example.com/pictures/peter-jackson.jpg'),
+('Alfonso', 'Cuarón', 1961, 'Mexico', 'https://example.com/pictures/alfonso-cuaron.jpg'),
+('Bong', 'Joon-ho', 1969, 'South Korea', 'https://example.com/pictures/bong-joon-ho.jpg'),
+('Denis', 'Villeneuve', 1967, 'Canada', 'https://example.com/pictures/denis-villeneuve.jpg'),
+('Greta', 'Gerwig', 1983, 'USA', 'https://example.com/pictures/greta-gerwig.jpg'),
+('Taika', 'Waititi', 1975, 'New Zealand', 'https://example.com/pictures/taika-waititi.jpg');
 
--- Insertar directores y actores para "Inception"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Christopher', 'Nolan', 1970, 'UK', 'url_to_christopher_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Leonardo', 'DiCaprio', 1974, 'USA', 'url_to_leonardo_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Joseph', 'Gordon-Levitt', 1981, 'USA', 'url_to_joseph_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Ellen', 'Page', 1987, 'Canada', 'url_to_ellen_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Tom', 'Hardy', 1977, 'UK', 'url_to_tom_picture');
+INSERT INTO act (idMovie, idPerson)
+SELECT m.id, p.id
+FROM (
+  SELECT id FROM movies
+  ORDER BY id ASC
+  LIMIT 61,60  -- Supongamos que queremos 150 relaciones
+) m
+JOIN (
+  SELECT id FROM people
+  ORDER BY RAND()
+  LIMIT 3  -- Supongamos la misma cantidad de personas seleccionadas al azar
+) p;
 
--- Insertar directores y actores para "Forrest Gump"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Robert', 'Zemeckis', 1952, 'USA', 'url_to_robert_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Tom', 'Hanks', 1956, 'USA', 'url_to_tom_h_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Robin', 'Wright', 1966, 'USA', 'url_to_robin_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Gary', 'Sinise', 1955, 'USA', 'url_to_gary_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Sally', 'Field', 1946, 'USA', 'url_to_sally_picture');
-
--- Insertar directores y actores para "Titanic"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('James', 'Cameron', 1954, 'Canada', 'url_to_james_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Kate', 'Winslet', 1975, 'UK', 'url_to_kate_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Billy', 'Zane', 1966, 'USA', 'url_to_billy_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Kathy', 'Bates', 1948, 'USA', 'url_to_kathy_picture');
-
--- Insertar directores y actores para "Pulp Fiction"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Quentin', 'Tarantino', 1963, 'USA', 'url_to_quentin_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('John', 'Travolta', 1954, 'USA', 'url_to_john_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Uma', 'Thurman', 1970, 'USA', 'url_to_uma_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Samuel L.', 'Jackson', 1948, 'USA', 'url_to_samuel_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Bruce', 'Willis', 1955, 'USA', 'url_to_bruce_picture');
-
--- Insertar directores y actores para "The Dark Knight"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Christian', 'Bale', 1974, 'UK', 'url_to_christian_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Heath', 'Ledger', 1979, 'Australia', 'url_to_heath_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Aaron', 'Eckhart', 1968, 'USA', 'url_to_aaron_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Michael', 'Caine', 1933, 'UK', 'url_to_michael_picture');
-
--- Insertar directores y actores para "Schindler's List"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Steven', 'Spielberg', 1946, 'USA', 'url_to_steven_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Liam', 'Neeson', 1952, 'Ireland', 'url_to_liam_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Ben', 'Kingsley', 1943, 'UK', 'url_to_ben_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Ralph', 'Fiennes', 1962, 'UK', 'url_to_ralph_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Caroline', 'Goodall', 1959, 'UK', 'url_to_caroline_picture');
-
--- Insertar directores y actores para "The Godfather"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Francis Ford', 'Coppola', 1939, 'USA', 'url_to_francis_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Marlon', 'Brando', 1924, 'USA', 'url_to_marlon_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Al', 'Pacino', 1940, 'USA', 'url_to_al_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('James', 'Caan', 1940, 'USA', 'url_to_james_c_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Robert', 'Duvall', 1931, 'USA', 'url_to_robert_d_picture');
-
--- Insertar directores y actores para "Jurassic Park"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Sam', 'Neill', 1947, 'Ireland', 'url_to_sam_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Laura', 'Dern', 1967, 'USA', 'url_to_laura_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Jeff', 'Goldblum', 1952, 'USA', 'url_to_jeff_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Richard', 'Attenborough', 1923, 'UK', 'url_to_richard_picture');
-
--- Insertar directores y actores para "Toy Story"
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('John', 'Lasseter', 1957, 'USA', 'url_to_john_l_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Tom', 'Hanks', 1956, 'USA', 'url_to_tom_h_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Tim', 'Allen', 1953, 'USA', 'url_to_tim_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Don', 'Rickles', 1926, 'USA', 'url_to_don_picture');
-INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES ('Jim', 'Varney', 1949, 'USA', 'url_to_jim_picture');
-
-
-INSERT INTO direct (idMovie, idPerson) VALUES
-(1, 1),  -- Inception, Christopher Nolan
-(2, 1),  -- The Dark Knight, Christopher Nolan
-(3, 2),  -- Saving Private Ryan, Steven Spielberg
-(4, 3),  -- The Revenant, Alejandro González Iñárritu
-(5, 4);  -- The Iron Lady, Meryl Streep (asumimos que Meryl Streep está representando a Margaret Thatcher en nuestra base de datos de personas)
-
-INSERT INTO act (idMovie, idPerson) VALUES
-(1, 6),  -- Inception, Leonardo DiCaprio
-(2, 8),  -- The Dark Knight, Christian Bale
-(3, 5),  -- Saving Private Ryan, Tom Hanks
-(4, 6),  -- The Revenant, Leonardo DiCaprio
-(5, 4),  -- The Iron Lady, Meryl Streep
-(6, 5),  -- Forrest Gump, Tom Hanks
-(7, 5),  -- Toy Story, Tom Hanks
-(7, 7);  -- Toy Story, Tim Allen
+INSERT INTO direct (idMovie, idPerson)
+SELECT m.id, p.id
+FROM (
+  SELECT id FROM movies
+  ORDER BY id ASC
+  LIMIT 1,3  -- Supongamos que queremos 150 relaciones
+) m
+JOIN (
+  SELECT id FROM people
+  ORDER BY RAND()
+  LIMIT 1  -- Supongamos la misma cantidad de personas seleccionadas al azar
+) p;
 
 SELECT * FROM users;
 
@@ -356,22 +331,22 @@ SELECT * FROM movies;
 
 SELECT * FROM people;
 
-SELECT movies.title, people.firstname, people.lastname
+SELECT COUNT(DISTINCT movies.id)
 FROM act
 JOIN movies ON act.idMovie = movies.id
 JOIN people ON act.idPerson = people.id;
 
-SELECT movies.title, people.firstname, people.lastname
+SELECT COUNT(DISTINCT movies.id)
 FROM direct
 JOIN movies ON direct.idMovie = movies.id
 JOIN people ON direct.idPerson = people.id;
 
-SELECT movies.id, movies.title
+SELECT COUNT(DISTINCT movies.id)
 FROM movies
 LEFT JOIN act ON movies.id = act.idMovie
 WHERE act.idMovie IS NULL;
 
-SELECT movies.id, movies.title
+SELECT COUNT(DISTINCT movies.id)
 FROM movies
 LEFT JOIN direct ON movies.id = direct.idMovie
 WHERE direct.idMovie IS NULL;
