@@ -51,7 +51,7 @@ CREATE TABLE direct (
     FOREIGN KEY (idPerson) REFERENCES people (id)
 );
 
-INSERT INTO users (username, password, first_name, lastname, email) VALUES 
+INSERT INTO users (username, password, first_name, lastname, email) VALUES
 ('johndoe01', 'password123', 'John', 'Doe', 'johndoe01@example.com'),
 ('janedoe02', 'password123', 'Jane', 'Doe', 'janedoe02@example.com'),
 ('michaellee03', 'password123', 'Michael', 'Lee', 'michaellee03@example.com'),
@@ -132,16 +132,17 @@ INSERT INTO users (username, password, first_name, lastname, email) VALUES
 ('lucaswright78', 'password123', 'Lucas', 'Wright', 'lucaswright78@example.com'),
 ('sofiacarter79', 'password123', 'Sofia', 'Carter', 'sofiacarter79@example.com'),
 ('masonmiller80', 'password123', 'Mason', 'Miller', 'masonmiller80@example.com'),
+('user', 'user', 'user', 'user', 'user@user.com'),
 -- Continúa con más entradas...
 ('aaronlee250', 'password123', 'Aaron', 'Lee', 'aaronlee250@example.com');
 
 INSERT INTO movies (title, year, duration, poster) VALUES
-('The Great Escape', 1963, 172, 'https://example.com/posters/thegreatescape.jpg'),
-('A Beautiful Mind', 2001, 135, 'https://example.com/posters/abeautifulmind.jpg'),
-('The Matrix', 1999, 136, 'https://example.com/posters/thematrix.jpg'),
-('Inception', 2010, 148, 'https://example.com/posters/inception.jpg'),
-('Forrest Gump', 1994, 142, 'https://example.com/posters/forrestgump.jpg'),
-('Gladiator', 2000, 155, 'https://example.com/posters/gladiator.jpg'),
+('The Great Escape', 1963, 172, 'https://s3.amazonaws.com/criterion-production/films/5a8da68d2d614bc2841f3133a9d1e16d/bPuyXlWNoUAC4cbWbL1Z08Q48keUKn_large.jpg'),
+('A Beautiful Mind', 2001, 135, 'https://m.media-amazon.com/images/M/MV5BMzcwYWFkYzktZjAzNC00OGY1LWI4YTgtNzc5MzVjMDVmNjY0XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg'),
+('The Matrix', 1999, 136, 'https://es.web.img3.acsta.net/medias/nmedia/18/72/16/76/20065616.jpg'),
+('Inception', 2010, 148, 'https://m.media-amazon.com/images/I/912AErFSBHL._AC_UF894,1000_QL80_DpWeblab_.jpg'),
+('Forrest Gump', 1994, 142, 'https://pics.filmaffinity.com/Forrest_Gump-212765827-large.jpg'),
+('Gladiator', 2000, 155, 'https://pics.filmaffinity.com/Gladiator-331143379-mmed.jpg'),
 ('Titanic', 1997, 195, 'https://example.com/posters/titanic.jpg'),
 ('Avatar', 2009, 162, 'https://example.com/posters/avatar.jpg'),
 ('The Dark Knight', 2008, 152, 'https://example.com/posters/thedarkknight.jpg'),
@@ -258,10 +259,10 @@ INSERT INTO movies (title, year, duration, poster) VALUES
 ('Elemental', 2023, 90, 'https://example.com/posters/elemental.jpg');
 
 INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES
-('Tom', 'Hanks', 1956, 'USA', 'https://example.com/pictures/tom-hanks.jpg'),
-('Leonardo', 'DiCaprio', 1974, 'USA', 'https://example.com/pictures/leonardo-dicaprio.jpg'),
-('Kate', 'Winslet', 1975, 'UK', 'https://example.com/pictures/kate-winslet.jpg'),
-('Christian', 'Bale', 1974, 'UK', 'https://example.com/pictures/christian-bale.jpg'),
+('Tom', 'Hanks', 1956, 'USA', 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Tom_Hanks_at_the_Elvis_Premiere_2022.jpg'),
+('Leonardo', 'DiCaprio', 1974, 'USA', 'https://pics.filmaffinity.com/107096988846060-nm_200.jpg'),
+('Kate', 'Winslet', 1975, 'UK', 'https://es.web.img2.acsta.net/pictures/15/09/15/10/01/065591.jpg'),
+('Christian', 'Bale', 1974, 'UK', 'https://m.media-amazon.com/images/M/MV5BMTkxMzk4MjQ4MF5BMl5BanBnXkFtZTcwMzExODQxOA@@._V1_.jpg'),
 ('Brad', 'Pitt', 1963, 'USA', 'https://example.com/pictures/brad-pitt.jpg'),
 ('Natalie', 'Portman', 1981, 'Israel/USA', 'https://example.com/pictures/natalie-portman.jpg'),
 ('Morgan', 'Freeman', 1937, 'USA', 'https://example.com/pictures/morgan-freeman.jpg'),
@@ -281,11 +282,11 @@ INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES
 ('Christopher', 'Nolan', 1970, 'UK', 'https://example.com/pictures/christopher-nolan.jpg'),
 ('Quentin', 'Tarantino', 1963, 'USA', 'https://example.com/pictures/quentin-tarantino.jpg'),
 ('Sofia', 'Coppola', 1971, 'USA', 'https://example.com/pictures/sofia-coppola.jpg'),
-('Martin', 'Scorsese', 1942, 'USA', 'https://example.com/pictures/martin-scorsese.jpg'),
+('Martin', 'Scorsese', 1942, 'USA', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Martin_Scorsese-68754.jpg/1200px-Martin_Scorsese-68754.jpg'),
 ('Wes', 'Anderson', 1969, 'USA', 'https://example.com/pictures/wes-anderson.jpg'),
 ('Steven', 'Spielberg', 1946, 'USA', 'https://example.com/pictures/steven-spielberg.jpg'),
 ('Kathryn', 'Bigelow', 1951, 'USA', 'https://example.com/pictures/kathryn-bigelow.jpg'),
-('James', 'Cameron', 1954, 'Canada', 'https://example.com/pictures/james-cameron.jpg'),
+('James', 'Cameron', 1954, 'Canada', 'https://cdn.britannica.com/84/160284-050-695B1DE3/James-Cameron-2012.jpg'),
 ('Guillermo', 'del Toro', 1964, 'Mexico', 'https://example.com/pictures/guillermo-del-toro.jpg'),
 ('Ang', 'Lee', 1954, 'Taiwan', 'https://example.com/pictures/ang-lee.jpg'),
 ('Alejandro', 'González Iñárritu', 1963, 'Mexico', 'https://example.com/pictures/alejandro-gonzalez-inarritu.jpg'),
@@ -350,3 +351,9 @@ SELECT COUNT(DISTINCT movies.id)
 FROM movies
 LEFT JOIN direct ON movies.id = direct.idMovie
 WHERE direct.idMovie IS NULL;
+
+SELECT COUNT(*) FROM users WHERE username = "user" AND password = "user";
+SELECT COUNT(*) FROM users WHERE username = "1" AND password = "user";
+
+INSERT INTO users (first_name, lastname, username, email, password) VALUE ("pepe","apellido","pepe","email@gmail.com","1234");
+

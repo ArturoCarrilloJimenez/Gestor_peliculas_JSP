@@ -21,8 +21,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
+}
+
+#bodyLogin {
+    height: 100vh;
 }
 
 /* index.jsp and register.jsp */
@@ -68,7 +71,7 @@ body {
     cursor: pointer;
 }
 
-#login button[type="submit"]:hover, .buton_login:hover{
+#login button[type="submit"]:hover, .buton_login:hover {
     background-color: var(--azul_cinema);
     transition: 0.3s;
 }
@@ -83,7 +86,7 @@ body {
 
 @media (min-width: 768px) {
     #login, #register {
-        padding:40px;
+        padding: 40px;
     }
 }
 
@@ -93,12 +96,13 @@ body {
     }
 }
 
-/* indexMovies.jsp */
+/* indexConten.jsp */
 
 .container {
     background-color: var(--plata_pantalla);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -151,8 +155,53 @@ body {
     color: var(--azul_cinema);
 }
 
-.cuerpo {
+#cuerpoPeliiculas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
 
+.movie, .actor {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.title, .name {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #545454;
+    margin-bottom: 20px;
+}
+
+.info_act {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.info_act p {
+    margin-right: 20px;
+}
+
+.poster, .photo {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .footer {
