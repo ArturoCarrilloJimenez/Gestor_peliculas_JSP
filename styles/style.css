@@ -155,6 +155,64 @@ body {
     color: var(--azul_cinema);
 }
 
+#add_date {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-container {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--blanco);
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: var(--azul_cinema);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: var(--carbono_oscuro);
+    transition: 1s;
+}
+
+#title {
+    display: flex;
+    padding-top: 10px;
+}
+
+.buton_center {
+    display: flex;
+    justify-content: center;
+}
+
+.buton_center a {
+    margin: 0 10px;
+}
+
 #cuerpoPeliiculas {
     display: flex;
     flex-wrap: wrap;
