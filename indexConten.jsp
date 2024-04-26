@@ -155,7 +155,9 @@
         <%
         } else if (action.equals("deleteMovie") || action.equals("deleteActors") || action.equals("deleteDirectors")) {
         %>
-        <h4>Estas seguro de que quieres eliminar este registro?</h4>
+        <h4 style="text-align: center">Estas seguro de que quieres eliminar este registro?</h4>
+        <%if (action.equals("deleteDirectors")) {%><p>Esto elimirara al director de todas las peliculas que a
+        dirigido</p><%}%>
         <div class="buton_center">
             <a href="indexConten.jsp?action=<%=action%>Confirm&id=<%=request.getParameter("id")%>"><img
                     src="svg/confirmDelete.svg"></a>
