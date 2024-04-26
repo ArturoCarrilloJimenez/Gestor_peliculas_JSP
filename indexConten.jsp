@@ -3,20 +3,23 @@
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%
-    // Si no hay sesion iniciada, redirigir a index.jsp
+    // Optengo la accion que se va a realizar
     String action = request.getParameter("action");
 
+    // Si la accion es null no se hace nada
     if (action == null) {
-    } else if (action.equals("addMovieConfirm")) {
+    } else if (action.equals("addMovieConfirm")) { // Si la accion es addMovieConfirm, este se encarga de agregar una pelicula a la base de datos
         int message = 0;
+        // Obtengo los datos de la pelicula
         String title = request.getParameter("title");
         String year = request.getParameter("year");
         String duration = request.getParameter("duration");
         String poster = request.getParameter("poster");
+        // Creo una conexion a la base de datos
         ConnectionModel connectionModel = new ConnectionModel();
         Connection connection = connectionModel.getConnection();
         if (connection != null) {
-            try {
+            try { // Intento agregar la pelicula a la base de datos
                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO movies (title, year, duration, poster) VALUES (?, ?, ?, ?)");
                 preparedStatement.setString(1, title);
                 preparedStatement.setString(2, year);
@@ -25,26 +28,29 @@
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
                 connection.close();
-            } catch (Exception e) {
+            } catch (Exception e) { // Si la pelicula ya existe en la base de datos mando un mensaje de error
                 session.setAttribute("message", "Esa pelicula ya existe en la base de datos");
                 message = 1;
             }
 
+            // Si no hay errores redirecciono a la pagina de las peliculas
             if (message == 0) {
                 response.sendRedirect("indexConten.jsp?action=showMovies");
             }
         }
-    } else if (action.equals("addActorConfirm")) {
+    } else if (action.equals("addActorConfirm")) { // Si la accion es addActorConfirm, este se encarga de agregar un actor a la base de datos
         int message = 0;
+        // Obtengo los datos del actor
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String yearOfBirth = request.getParameter("yearOfBirth");
         String country = request.getParameter("country");
         String picture = request.getParameter("picture");
+        // Creo una conexion a la base de datos
         ConnectionModel connectionModel = new ConnectionModel();
         Connection connection = connectionModel.getConnection();
         if (connection != null) {
-            try {
+            try { // Intento agregar el actor a la base de datos
                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO people (firstname, lastname, yearOfBirth, country, picture) VALUES (?, ?, ?, ?, ?)");
                 preparedStatement.setString(1, firstname);
                 preparedStatement.setString(2, lastname);
@@ -54,23 +60,26 @@
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
                 connection.close();
-            } catch (Exception e) {
+            } catch (Exception e) { // Si el actor ya existe en la base de datos mando un mensaje de error
                 session.setAttribute("message", "Ese actor ya existe en la base de datos");
                 message = 1;
             }
 
+            // Si no hay errores redirecciono a la pagina de los actores
             if (message == 0) {
                 response.sendRedirect("indexConten.jsp?action=showActors");
             }
         }
     }
 %>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>CineScope</title>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="styles/style.css">
-    <%
+    <% // Muestro un mensaje si es que hay alguno
         String message = (String) session.getAttribute("message");
         if (message != null) {
     %>
@@ -102,7 +111,7 @@
     </div>
     <!-- Title -->
     <div id="title">
-        <%
+        <% // Muestro el titulo de la pagina dependiendo de la accion
             if (action == null) {
 
             } else if (action.equals("showMovies") || action.equals("addMovies")) {
@@ -124,10 +133,10 @@
     </div>
     <!-- Add date -->
     <div id="add_date">
-        <%
+        <% // Muestro el formulario para agregar una pelicula, actor o director dependiendo de la accion
             if (action == null) {
 
-            } else if (action.equals("addMovies")) {
+            } else if (action.equals("addMovies")) { // Formulario para agregar una pelicula
         %>
         <div class="form-container">
             <form action="indexConten.jsp?action=addMovieConfirm" method="post" class="form">
@@ -139,7 +148,7 @@
             </form>
         </div>
         <%
-        } else if (action.equals("addActor")) {
+        } else if (action.equals("addActor")) { // Formulario para agregar un actor
         %>
         <div class="form-container">
             <form action="indexConten.jsp?action=addActorConfirm" method="post" class="form">
@@ -152,7 +161,7 @@
                 <input type="submit" value="Add" class="submit-button">
             </form>
         </div>
-        <%
+        <% // Metodo de confirmacion para eliminar una pelicula, actor o director
         } else if (action.equals("deleteMovie") || action.equals("deleteActors") || action.equals("deleteDirectors")) {
         %>
         <h4 style="text-align: center">Estas seguro de que quieres eliminar este registro?</h4>
@@ -165,7 +174,7 @@
                 <img src="svg/cancelDelete.svg"></a>
         </div>
         <%
-            } else if (action.equals("deleteMovieConfirm")) {
+            } else if (action.equals("deleteMovieConfirm")) { // Metodo que elimina una pelicula
                 int id = Integer.parseInt(request.getParameter("id"));
                 ConnectionModel connectionModel = new ConnectionModel();
                 Connection connection = connectionModel.getConnection();
@@ -182,7 +191,7 @@
                     }
                 }
 
-            } else if (action.equals("deleteActorsConfirm")) {
+            } else if (action.equals("deleteActorsConfirm")) { // Metodo que elimina un actor
                 ConnectionModel connectionModel = new ConnectionModel();
                 Connection connection = connectionModel.getConnection();
                 if (connection != null) {
@@ -198,7 +207,7 @@
                         session.setAttribute("message", "No se puede eliminar el actor, esta siendo usado en otra tabla");
                     }
                 }
-            } else if (action.equals("deleteDirectorsConfirm")) {
+            } else if (action.equals("deleteDirectorsConfirm")) { // Metodo que elimina un director
                 int id = Integer.parseInt(request.getParameter("id"));
                 ConnectionModel connectionModel = new ConnectionModel();
                 Connection connection = connectionModel.getConnection();
@@ -220,10 +229,10 @@
     <!-- Body -->
     <div id="cuerpoPeliiculas">
         <% // Mostrar peliculas
-            if (action == null) {
+            if (action == null) { // Si no hay accion muestro un mensaje de que se debe iniciar sesion
                 session.setAttribute("message", "Primero debes iniciar sesion");
                 response.sendRedirect("index.jsp");
-            } else if (action.equals("showMovies") || action.equals("addMovies")) {
+            } else if (action.equals("showMovies") || action.equals("addMovies")) { // Mostrar peliculas
                 ConnectionModel connectionModel = new ConnectionModel();
                 Connection connection = connectionModel.getConnection();
                 if (connection != null) {

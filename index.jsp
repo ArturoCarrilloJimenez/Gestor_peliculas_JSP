@@ -50,10 +50,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
     <title>CineScope</title>
     <link rel="icon" href="img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="styles/style.css">
-    <%
+    <% // Mensaje de error
         String message = (String) session.getAttribute("message");
         if (message != null) {
     %>
