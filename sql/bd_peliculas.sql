@@ -143,17 +143,17 @@ INSERT INTO movies (title, year, duration, poster) VALUES
 ('Inception', 2010, 148, 'https://m.media-amazon.com/images/I/912AErFSBHL._AC_UF894,1000_QL80_DpWeblab_.jpg'),
 ('Forrest Gump', 1994, 142, 'https://pics.filmaffinity.com/Forrest_Gump-212765827-large.jpg'),
 ('Gladiator', 2000, 155, 'https://pics.filmaffinity.com/Gladiator-331143379-mmed.jpg'),
-('Titanic', 1997, 195, 'https://example.com/posters/titanic.jpg'),
-('Avatar', 2009, 162, 'https://example.com/posters/avatar.jpg'),
-('The Dark Knight', 2008, 152, 'https://example.com/posters/thedarkknight.jpg'),
-('Pulp Fiction', 1994, 154, 'https://example.com/posters/pulpfiction.jpg'),
-('Schindler\'s List', 1993, 195, 'https://example.com/posters/schindlerslist.jpg'),
-('The Shawshank Redemption', 1994, 142, 'https://example.com/posters/shawshankredemption.jpg'),
-('Braveheart', 1995, 178, 'https://example.com/posters/braveheart.jpg'),
-('The Godfather', 1972, 175, 'https://example.com/posters/thegodfather.jpg'),
-('Jurassic Park', 1993, 127, 'https://example.com/posters/jurassicpark.jpg'),
-('The Lion King', 1994, 88, 'https://example.com/posters/thelionking.jpg'),
-('Star Wars: Episode IV - A New Hope', 1977, 121, 'https://example.com/posters/starwarsanh.jpg'),
+('Titanic', 1997, 195, 'https://m.media-amazon.com/images/I/811lT7khIrL._AC_UF894,1000_QL80_.jpg'),
+('Avatar', 2009, 162, 'https://m.media-amazon.com/images/S/pv-target-images/ae4816cade1a5b7f29787d0b89610132c72c7747041481c6619b9cc3302c0101.jpg'),
+('The Dark Knight', 2008, 152, 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg'),
+('Pulp Fiction', 1994, 154, 'https://pics.filmaffinity.com/Pulp_Fiction-210382116-mmed.jpg'),
+('Schindler\'s List', 1993, 195, 'https://m.media-amazon.com/images/I/61lq5sXvnjL._AC_UF894,1000_QL80_.jpg'),
+('The Shawshank Redemption', 1994, 142, 'https://pics.filmaffinity.com/Cadena_perpetua-576140557-large.jpg'),
+('Braveheart', 1995, 178, 'https://m.media-amazon.com/images/I/91Q40sjtphL._AC_UF1000,1000_QL80_.jpg'),
+('The Godfather', 1972, 175, 'https://upload.wikimedia.org/wikipedia/en/a/af/The_Godfather%2C_The_Game.jpg'),
+('Jurassic Park', 1993, 127, 'https://mir-s3-cdn-cf.behance.net/project_modules/hd/f00bf346385235.58520f9022451.jpg'),
+('The Lion King', 1994, 88, 'https://m.media-amazon.com/images/I/71wgqLl2v5L._AC_UF894,1000_QL80_.jpg'),
+('Star Wars: Episode IV - A New Hope', 1977, 121, 'https://cdn.kobo.com/book-images/538b1473-6d45-47f4-b16e-32a0a6ba7f9a/1200/1200/False/star-wars-episode-iv-a-new-hope-3.jpg'),
 ('Back to the Future', 1985, 116, 'https://example.com/posters/backtothefuture.jpg'),
 ('The Silence of the Lambs', 1991, 118, 'https://example.com/posters/thesilenceofthelambs.jpg'),
 ('Saving Private Ryan', 1998, 169, 'https://example.com/posters/savingprivateryan.jpg'),
@@ -305,7 +305,6 @@ SELECT m.id, p.id
 FROM (
   SELECT id FROM movies
   ORDER BY id ASC
-  LIMIT 61,60  -- Supongamos que queremos 150 relaciones
 ) m
 JOIN (
   SELECT id FROM people
@@ -357,3 +356,4 @@ SELECT COUNT(*) FROM users WHERE username = "1" AND password = "user";
 
 INSERT INTO users (first_name, lastname, username, email, password) VALUE ("pepe","apellido","pepe","email@gmail.com","1234");
 
+DELETE FROM people WHERE id = 41;

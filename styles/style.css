@@ -22,10 +22,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-}
-
-#bodyLogin {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* index.jsp and register.jsp */
@@ -220,6 +217,13 @@ body {
     margin-top: 20px;
 }
 
+.cuerpoPeliiculas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .movie, .actor {
     display: flex;
     align-items: center;
@@ -272,4 +276,32 @@ p {
 
 .footer p {
     margin: 0;
+}
+
+/* mensaje en desarrolo */
+.development-message {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.text-container {
+    text-align: center;
+}
+
+.text-container h1 {
+    margin-top: 0;
+    font-weight: bold;
+    color: var(--carbono_oscuro);
+}
+
+.text-container p {
+    margin-bottom: 20px;
+    color: var(--gris_cine);
+}
+
+.icon {
+    width: 100px;
 }

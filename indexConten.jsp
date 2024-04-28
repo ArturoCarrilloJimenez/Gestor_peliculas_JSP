@@ -128,6 +128,20 @@
         %>
         <h1>Directors</h1>
         <%
+        } else if (action.equals("enDesarrollo")) {
+        %>
+        <div style="display: block; text-align: center">
+            <div class="development-message">
+                <div class="text-container">
+                    <h1>En Desarrollo</h1>
+                    <p>Esta funci&oacute;n est&aacute; actualmente en desarrollo.</p>
+                    <p>Por favor, regrese m&aacute;s tarde.</p>
+                </div>
+            </div>
+            <img src="img/vecteezy_brand-development-icon_6389827-removebg-preview.png" alt="Ícono de desarrollo"
+                 class="icon">
+        </div>
+        <%
             }
         %>
     </div>
@@ -174,57 +188,59 @@
                 <img src="svg/cancelDelete.svg"></a>
         </div>
         <%
-            } else if (action.equals("deleteMovieConfirm")) { // Metodo que elimina una pelicula
-                int id = Integer.parseInt(request.getParameter("id"));
-                ConnectionModel connectionModel = new ConnectionModel();
-                Connection connection = connectionModel.getConnection();
-                if (connection != null) {
-                    try {
-                        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM movies WHERE id = ?");
-                        preparedStatement.setInt(1, id);
-                        preparedStatement.executeUpdate();
-                        preparedStatement.close();
-                        connection.close();
-                        session.setAttribute("message", "Pelicula eliminada correctamente");
-                    } catch (Exception e) {
-                        session.setAttribute("message", "No se puede eliminar la pelicula, esta siendo usada en otra tabla");
-                    }
-                }
-
-            } else if (action.equals("deleteActorsConfirm")) { // Metodo que elimina un actor
-                ConnectionModel connectionModel = new ConnectionModel();
-                Connection connection = connectionModel.getConnection();
-                if (connection != null) {
-                    try {
-                        int id = Integer.parseInt(request.getParameter("id"));
-                        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM people WHERE id = ?");
-                        preparedStatement.setInt(1, id);
-                        preparedStatement.executeUpdate();
-                        preparedStatement.close();
-                        connection.close();
-                        session.setAttribute("message", "Actor eliminado correctamente");
-                    } catch (Exception e) {
-                        session.setAttribute("message", "No se puede eliminar el actor, esta siendo usado en otra tabla");
-                    }
-                }
-            } else if (action.equals("deleteDirectorsConfirm")) { // Metodo que elimina un director
-                int id = Integer.parseInt(request.getParameter("id"));
-                ConnectionModel connectionModel = new ConnectionModel();
-                Connection connection = connectionModel.getConnection();
-                if (connection != null) {
-                    try {
-                        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM direct WHERE idPerson = ?");
-                        preparedStatement.setInt(1, id);
-                        preparedStatement.executeUpdate();
-                        preparedStatement.close();
-                        connection.close();
-                        session.setAttribute("message", "Director eliminado correctamente");
-                    } catch (Exception e) {
-                        session.setAttribute("message", "No se puede eliminar el director, esta siendo usado en otra tabla");
-                    }
+        } else if (action.equals("deleteMovieConfirm")) { // Metodo que elimina una pelicula
+            int id = Integer.parseInt(request.getParameter("id"));
+            ConnectionModel connectionModel = new ConnectionModel();
+            Connection connection = connectionModel.getConnection();
+            if (connection != null) {
+                try {
+                    PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM movies WHERE id = ?");
+                    preparedStatement.setInt(1, id);
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                    connection.close();
+                    session.setAttribute("message", "Pelicula eliminada correctamente");
+                } catch (Exception e) {
+                    session.setAttribute("message", "No se puede eliminar la pelicula, esta siendo usada en otra tabla");
                 }
             }
-        %>
+
+        } else if (action.equals("deleteActorsConfirm")) { // Metodo que elimina un actor
+            ConnectionModel connectionModel = new ConnectionModel();
+            Connection connection = connectionModel.getConnection();
+            if (connection != null) {
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM people WHERE id = ?");
+                    preparedStatement.setInt(1, id);
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                    connection.close();
+                    session.setAttribute("message", "Actor eliminado correctamente");
+                } catch (Exception e) {
+                    session.setAttribute("message", "No se puede eliminar el actor, esta siendo usado en otra tabla");
+                }
+            }
+        } else if (action.equals("deleteDirectorsConfirm")) { // Metodo que elimina un director
+            int id = Integer.parseInt(request.getParameter("id"));
+            ConnectionModel connectionModel = new ConnectionModel();
+            Connection connection = connectionModel.getConnection();
+            if (connection != null) {
+                try {
+                    PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM direct WHERE idPerson = ?");
+                    preparedStatement.setInt(1, id);
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                    connection.close();
+                    session.setAttribute("message", "Director eliminado correctamente");
+                } catch (Exception e) {
+                    session.setAttribute("message", "No se puede eliminar el director, esta siendo usado en otra tabla");
+                }
+            }
+        } else if (action.equals("movieDetails")) { // Mostrar los detalles de una pelicula
+        %> <h1 style="text-align: center">Movie Details</h1> <%
+        }
+    %>
     </div>
     <!-- Body -->
     <div id="cuerpoPeliiculas">
@@ -249,8 +265,9 @@
                 </p>
                 <p class="duration"><%=resultSet.getString("duration")%> min</p>
                 <div class="option">
-                    <a href="#"><img src="svg/view.svg"></a>
-                    <a href="#"><img src="svg/edit.svg"></a>
+                    <a href="indexConten.jsp?action=movieDetails&id=<%=resultSet.getString("id")%>"><img
+                            src="svg/view.svg"></a>
+                    <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
                     <a href="indexConten.jsp?action=deleteMovie&id=<%=resultSet.getString("id")%>"><img
                             src="svg/delete.svg"></a>
                 </div>
@@ -285,8 +302,8 @@
                     </p>
                 </div>
                 <div class="option">
-                    <a href="#"><img src="svg/view.svg"></a>
-                    <a href="#"><img src="svg/edit.svg"></a>
+                    <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/view.svg"></a>
+                    <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
                     <a href="indexConten.jsp?action=deleteActors&id=<%=resultSet.getString("id")%>"><img
                             src="svg/delete.svg"></a>
                 </div>
@@ -322,8 +339,8 @@
                     </p>
                 </div>
                 <div class="option">
-                    <a href="#"><img src="svg/view.svg"></a>
-                    <a href="#"><img src="svg/edit.svg"></a>
+                    <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/view.svg"></a>
+                    <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
                     <a href="indexConten.jsp?action=deleteDirectors&id=<%=resultSet.getString("id")%>"><img
                             src="svg/delete.svg"></a>
                 </div>
@@ -331,12 +348,86 @@
             <img src="<%=resultSet.getString("picture")%>" class="photo">
         </div>
         <%
-                        }
+                    }
+                    resultSet.close();
+                    preparedStatement.close();
+                    connection.close();
+                } catch (Exception e) {
+
+                }
+            }
+        } else if (action.equals("movieDetails")) { // Mostrar los detalles de una pelicula7
+            int id = Integer.parseInt(request.getParameter("id"));
+            // Creo una conexion a la base de datos
+            ConnectionModel connectionModel = new ConnectionModel();
+            Connection connection = connectionModel.getConnection();
+            if (connection != null) {
+                try { // Obtengo los datos de la pelicula
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM movies WHERE id = ?");
+                    preparedStatement.setInt(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+        %>
+        <div style="display: block">
+            <div class="cuerpoPeliiculas">
+                <div class="movie">
+                    <div class="info">
+                        <h2 class="title"><%=
+                        resultSet.getString("title")%>
+                        </h2>
+                        <p class="year"><%=resultSet.getString("year")%>
+                        </p>
+                        <p class="duration"><%=resultSet.getString("duration")%> min</p>
+                        <div class="option">
+                            <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
+                            <a href="indexConten.jsp?action=deleteMovie&id=<%=resultSet.getString("id")%>"><img
+                                    src="svg/delete.svg"></a>
+                        </div>
+                    </div>
+                    <img src="<%=resultSet.getString("poster")%>" class="poster">
+                </div>
+            </div>
+            <%
+                }
+                resultSet.close();
+                preparedStatement.close();
+            %>
+            <h2 style="text-align: center">Actors</h2>
+            <%
+                preparedStatement = connection.prepareStatement("SELECT people.* FROM people INNER JOIN act ON people.id = act.idPerson WHERE act.idMovie = ?");
+                preparedStatement.setInt(1, id);
+                resultSet = preparedStatement.executeQuery();
+            %>
+            <div class="cuerpoPeliiculas"><%
+                while (resultSet.next()) {
+            %>
+                <div class="actor">
+                    <div class="info">
+                        <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                        </h2>
+                        <div class="info_act">
+                            <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                            </p>
+                            <p class="country"><%=resultSet.getString("country")%>
+                            </p>
+                        </div>
+                        <div class="option">
+                            <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/view.svg"></a>
+                            <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
+                            <a href="indexConten.jsp?action=deleteActors&id=<%=resultSet.getString("id")%>"><img
+                                    src="svg/delete.svg"></a>
+                        </div>
+                    </div>
+                    <img src="<%=resultSet.getString("picture")%>" class="photo">
+                </div>
+                <%
+                    }
+                %></div>
+        </div>
+        <%
                         resultSet.close();
                         preparedStatement.close();
-                        connection.close();
                     } catch (Exception e) {
-
                     }
                 }
             }
