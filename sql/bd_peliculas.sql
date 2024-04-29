@@ -305,6 +305,7 @@ SELECT m.id, p.id
 FROM (
   SELECT id FROM movies
   ORDER BY id ASC
+  LIMIT 1,130
 ) m
 JOIN (
   SELECT id FROM people
@@ -317,7 +318,7 @@ SELECT m.id, p.id
 FROM (
   SELECT id FROM movies
   ORDER BY id ASC
-  LIMIT 1,3  -- Supongamos que queremos 150 relaciones
+  LIMIT 120,150  -- Supongamos que queremos 150 relaciones
 ) m
 JOIN (
   SELECT id FROM people

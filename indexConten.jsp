@@ -70,6 +70,38 @@
                 response.sendRedirect("indexConten.jsp?action=showActors");
             }
         }
+    } else if (action.equals("modifyMovieComfirm")) { // Si la accion es modifyMovieComfirm, este se encarga de modificar una pelicula en la base de datos
+        int message = 0;
+        // Obtengo los datos de la pelicula
+        int id = Integer.parseInt(request.getParameter("id"));
+        String title = request.getParameter("title");
+        String year = request.getParameter("year");
+        String duration = request.getParameter("duration");
+        String poster = request.getParameter("poster");
+        // Creo una conexion a la base de datos
+        ConnectionModel connectionModel = new ConnectionModel();
+        Connection connection = connectionModel.getConnection();
+        if (connection != null) {
+            try { // Intento modificar la pelicula en la base de datos
+                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE movies SET title = ?, year = ?, duration = ?, poster = ? WHERE id = ?");
+                preparedStatement.setString(1, title);
+                preparedStatement.setString(2, year);
+                preparedStatement.setString(3, duration);
+                preparedStatement.setString(4, poster);
+                preparedStatement.setInt(5, id);
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                session.setAttribute("message", "No se puede modificar la pelicula");
+                message = 1;
+            }
+        }
+
+        // Si no hay errores redirecciono a la pagina de las peliculas
+        if (message == 0) {
+            response.sendRedirect("indexConten.jsp?action=showMovies");
+        }
     }
 %>
 <!DOCTYPE html>
@@ -142,6 +174,10 @@
                  class="icon">
         </div>
         <%
+        } else if (action.equals("modifyMovie")) {
+        %>
+        <h1>Modify Movie</h1>
+        <%
             }
         %>
     </div>
@@ -150,10 +186,16 @@
         <% // Muestro el formulario para agregar una pelicula, actor o director dependiendo de la accion
             if (action == null) {
 
-            } else if (action.equals("addMovies")) { // Formulario para agregar una pelicula
+            } else if (action.equals("addMovies") || action.equals("modifyMovie")) { // Formulario para agregar una pelicula
+                int id = 0;
+                if (action.equals("modifyMovie")) {
+                    id = Integer.parseInt(request.getParameter("id"));
+                }
         %>
         <div class="form-container">
-            <form action="indexConten.jsp?action=addMovieConfirm" method="post" class="form">
+            <form action="<%if (action.equals("addMovies")) {%>indexConten.jsp?action=addMovieConfirm<%}
+            else if(action.equals("modifyMovie")){%>indexConten.jsp?action=modifyMovieComfirm&id=<%=id%><%}
+            %>" method="post" class="form">
                 <input type="text" name="title" placeholder="Title" class="input-field" required>
                 <input type="text" name="year" placeholder="Year" class="input-field" required>
                 <input type="text" name="duration" placeholder="Duration" class="input-field" required>
@@ -239,6 +281,8 @@
             }
         } else if (action.equals("movieDetails")) { // Mostrar los detalles de una pelicula
         %> <h1 style="text-align: center">Movie Details</h1> <%
+    } else if (action.equals("actorDetails")) { // Mostrar los detalles de una pelicula
+    %> <h1 style="text-align: center">Actor Details</h1> <%
         }
     %>
     </div>
@@ -248,12 +292,19 @@
             if (action == null) { // Si no hay accion muestro un mensaje de que se debe iniciar sesion
                 session.setAttribute("message", "Primero debes iniciar sesion");
                 response.sendRedirect("index.jsp");
-            } else if (action.equals("showMovies") || action.equals("addMovies")) { // Mostrar peliculas
+            } else if (action.equals("showMovies") || action.equals("addMovies") || action.equals("modifyMovie")) { // Mostrar peliculas
                 ConnectionModel connectionModel = new ConnectionModel();
                 Connection connection = connectionModel.getConnection();
                 if (connection != null) {
                     try {
-                        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM movies");
+                        PreparedStatement preparedStatement = null;
+                        if (action.equals("modifyMovie")) {
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            preparedStatement = connection.prepareStatement("SELECT * FROM movies WHERE id = ?");
+                            preparedStatement.setInt(1, id);
+                        } else {
+                            preparedStatement = connection.prepareStatement("SELECT * FROM movies;");
+                        }
                         ResultSet resultSet = preparedStatement.executeQuery();
                         while (resultSet.next()) {
         %>
@@ -267,7 +318,8 @@
                 <div class="option">
                     <a href="indexConten.jsp?action=movieDetails&id=<%=resultSet.getString("id")%>"><img
                             src="svg/view.svg"></a>
-                    <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
+                    <a href="indexConten.jsp?action=modifyMovie&id=<%=resultSet.getString("id")%>"><img
+                            src="svg/edit.svg"></a>
                     <a href="indexConten.jsp?action=deleteMovie&id=<%=resultSet.getString("id")%>"><img
                             src="svg/delete.svg"></a>
                 </div>
@@ -302,7 +354,8 @@
                     </p>
                 </div>
                 <div class="option">
-                    <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/view.svg"></a>
+                    <a href="indexConten.jsp?action=actorDetails&id=<%=resultSet.getString("id")%>"><img
+                            src="svg/view.svg"></a>
                     <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
                     <a href="indexConten.jsp?action=deleteActors&id=<%=resultSet.getString("id")%>"><img
                             src="svg/delete.svg"></a>
@@ -362,7 +415,7 @@
             ConnectionModel connectionModel = new ConnectionModel();
             Connection connection = connectionModel.getConnection();
             if (connection != null) {
-                try { // Obtengo los datos de la pelicula
+                try { // Obtengo los datos de la pelicula,
                     PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM movies WHERE id = ?");
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
@@ -393,7 +446,7 @@
                 preparedStatement.close();
             %>
             <h2 style="text-align: center">Actors</h2>
-            <%
+            <% // Obtengo los actores de la pelicula
                 preparedStatement = connection.prepareStatement("SELECT people.* FROM people INNER JOIN act ON people.id = act.idPerson WHERE act.idMovie = ?");
                 preparedStatement.setInt(1, id);
                 resultSet = preparedStatement.executeQuery();
@@ -412,7 +465,86 @@
                             </p>
                         </div>
                         <div class="option">
+                            <a href="indexConten.jsp?action=actorDetails&id=<%=resultSet.getString("id")%>"><img
+                                    src="svg/view.svg"></a>
+                            <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
+                            <a href="indexConten.jsp?action=enDesarrollo"><img
+                                    src="svg/delete.svg"></a>
+                        </div>
+                    </div>
+                    <img src="<%=resultSet.getString("picture")%>" class="photo">
+                </div>
+                <%
+                    }
+                    resultSet.close();
+                    preparedStatement.close();
+                %></div>
+            <h2 style="text-align: center">Directors</h2>
+            <div class="cuerpoPeliiculas">
+                <% // Obtengo los directores de la pelicula
+                    preparedStatement = connection.prepareStatement("SELECT people.* FROM people INNER JOIN direct ON people.id = direct.idPerson WHERE direct.idMovie = ?");
+                    preparedStatement.setInt(1, id);
+                    resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                %>
+                <div class="actor">
+                    <div class="info">
+                        <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                        </h2>
+                        <div class="info_act">
+                            <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                            </p>
+                            <p class="country"><%=resultSet.getString("country")%>
+                            </p>
+                        </div>
+                        <div class="option">
                             <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/view.svg"></a>
+                            <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
+                            <a href="indexConten.jsp?action=enDesarrollo"><img
+                                    src="svg/delete.svg"></a>
+                        </div>
+                    </div>
+                    <img src="<%=resultSet.getString("picture")%>" class="photo">
+                </div>
+                <%
+                    }
+                %>
+            </div>
+        </div>
+        <%
+                    resultSet.close();
+                    preparedStatement.close();
+                    connection.close();
+                } catch (Exception e) {
+                }
+            }
+        } else if (action.equals("actorDetails")) { // Mostrar los detalles de un actor
+            int id = Integer.parseInt(request.getParameter("id"));
+            // Creo una conexion a la base de datos
+            ConnectionModel connectionModel = new ConnectionModel();
+            Connection connection = connectionModel.getConnection();
+            if (connection != null) {
+                try { // Obtengo los datos del actor
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM people WHERE id = ?");
+                    preparedStatement.setInt(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+        %>
+        <div style="display: block">
+            <div class="cuerpoPeliiculas">
+                <%
+                    if (resultSet.next()) {
+                %>
+                <div class="actor">
+                    <div class="info">
+                        <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                        </h2>
+                        <div class="info_act">
+                            <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                            </p>
+                            <p class="country"><%=resultSet.getString("country")%>
+                            </p>
+                        </div>
+                        <div class="option">
                             <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
                             <a href="indexConten.jsp?action=deleteActors&id=<%=resultSet.getString("id")%>"><img
                                     src="svg/delete.svg"></a>
@@ -422,14 +554,48 @@
                 </div>
                 <%
                     }
-                %></div>
+                %>
+            </div>
+            <h2 style="text-align: center">Movies</h2>
+            <div class="cuerpoPeliiculas">
+                <%
+                    resultSet.close();
+                    preparedStatement.close();
+                    preparedStatement = connection.prepareStatement("SELECT movies.* FROM movies INNER JOIN act ON movies.id = act.idMovie WHERE act.idPerson = ?");
+                    preparedStatement.setInt(1, id);
+                    resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                %>
+                <div class="movie">
+                    <div class="info">
+                        <h2 class="title"><%=resultSet.getString("title")%>
+                        </h2>
+                        <p class="year"><%=resultSet.getString("year")%>
+                        </p>
+                        <p class="duration"><%=resultSet.getString("duration")%> min</p>
+                        <div class="option">
+                            <a href="indexConten.jsp?action=movieDetails&id=<%=resultSet.getString("id")%>"><img
+                                    src="svg/view.svg"></a>
+                            <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
+                            <a href="indexConten.jsp?action=enDesarrollo>"><img
+                                    src="svg/delete.svg"></a>
+                        </div>
+                    </div>
+                    <img src="<%=resultSet.getString("poster")%>" class="poster">
+                </div>
+                <%
+                    }
+                %>
+            </div>
         </div>
         <%
                         resultSet.close();
                         preparedStatement.close();
+                        connection.close();
                     } catch (Exception e) {
                     }
                 }
+
             }
         %>
     </div>
