@@ -200,11 +200,22 @@
                 <input type="text" name="year" placeholder="Year" class="input-field" required>
                 <input type="text" name="duration" placeholder="Duration" class="input-field" required>
                 <input type="text" name="poster" placeholder="URL de la imagen" class="input-field" required>
-                <input type="submit" value="Add" class="submit-button">
+                <input type="submit" value="<%if (action.equals("addMovies")) {%>Add<%} else if(action.equals("modifyMovie")) {%>Modify<%}%>" class="submit-button">
             </form>
         </div>
         <%
-        } else if (action.equals("addActor")) { // Formulario para agregar un actor
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "addActor"
+            )
+            )
+            { // Formulario para agregar un actor
         %>
         <div class="form-container">
             <form action="indexConten.jsp?action=addActorConfirm" method="post" class="form">
@@ -218,10 +229,46 @@
             </form>
         </div>
         <% // Metodo de confirmacion para eliminar una pelicula, actor o director
-        } else if (action.equals("deleteMovie") || action.equals("deleteActors") || action.equals("deleteDirectors")) {
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "deleteMovie"
+            )
+            ||
+            action
+            .
+            equals
+            (
+            "deleteActors"
+            )
+            ||
+            action
+            .
+            equals
+            (
+            "deleteDirectors"
+            )
+            )
+            {
         %>
         <h4 style="text-align: center">Estas seguro de que quieres eliminar este registro?</h4>
-        <%if (action.equals("deleteDirectors")) {%><p>Esto elimirara al director de todas las peliculas que a
+        <%
+            if
+            (
+            action
+            .
+            equals
+            (
+            "deleteDirectors"
+            )
+            )
+            {
+        %><p>Esto elimirara al director de todas las peliculas que a
         dirigido</p><%}%>
         <div class="buton_center">
             <a href="indexConten.jsp?action=<%=action%>Confirm&id=<%=request.getParameter("id")%>"><img
@@ -230,58 +277,383 @@
                 <img src="svg/cancelDelete.svg"></a>
         </div>
         <%
-        } else if (action.equals("deleteMovieConfirm")) { // Metodo que elimina una pelicula
-            int id = Integer.parseInt(request.getParameter("id"));
-            ConnectionModel connectionModel = new ConnectionModel();
-            Connection connection = connectionModel.getConnection();
-            if (connection != null) {
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM movies WHERE id = ?");
-                    preparedStatement.setInt(1, id);
-                    preparedStatement.executeUpdate();
-                    preparedStatement.close();
-                    connection.close();
-                    session.setAttribute("message", "Pelicula eliminada correctamente");
-                } catch (Exception e) {
-                    session.setAttribute("message", "No se puede eliminar la pelicula, esta siendo usada en otra tabla");
-                }
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "deleteMovieConfirm"
+            )
+            )
+            { // Metodo que elimina una pelicula
+            int
+            id
+            =
+            Integer
+            .
+            parseInt
+            (
+            request
+            .
+            getParameter
+            (
+            "id"
+            )
+            )
+            ;
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            {
+            PreparedStatement
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "DELETE FROM movies WHERE id = ?"
+            )
+            ;
+            preparedStatement
+            .
+            setInt
+            (
+            1
+            ,
+            id
+            )
+            ;
+            preparedStatement
+            .
+            executeUpdate
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
+            session
+            .
+            setAttribute
+            (
+            "message"
+            ,
+            "Pelicula eliminada correctamente"
+            )
+            ;
+            }
+            catch
+            (
+            Exception
+            e
+            )
+            {
+            session
+            .
+            setAttribute
+            (
+            "message"
+            ,
+            "No se puede eliminar la pelicula, esta siendo usada en otra tabla"
+            )
+            ;
+            }
             }
 
-        } else if (action.equals("deleteActorsConfirm")) { // Metodo que elimina un actor
-            ConnectionModel connectionModel = new ConnectionModel();
-            Connection connection = connectionModel.getConnection();
-            if (connection != null) {
-                try {
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM people WHERE id = ?");
-                    preparedStatement.setInt(1, id);
-                    preparedStatement.executeUpdate();
-                    preparedStatement.close();
-                    connection.close();
-                    session.setAttribute("message", "Actor eliminado correctamente");
-                } catch (Exception e) {
-                    session.setAttribute("message", "No se puede eliminar el actor, esta siendo usado en otra tabla");
-                }
             }
-        } else if (action.equals("deleteDirectorsConfirm")) { // Metodo que elimina un director
-            int id = Integer.parseInt(request.getParameter("id"));
-            ConnectionModel connectionModel = new ConnectionModel();
-            Connection connection = connectionModel.getConnection();
-            if (connection != null) {
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM direct WHERE idPerson = ?");
-                    preparedStatement.setInt(1, id);
-                    preparedStatement.executeUpdate();
-                    preparedStatement.close();
-                    connection.close();
-                    session.setAttribute("message", "Director eliminado correctamente");
-                } catch (Exception e) {
-                    session.setAttribute("message", "No se puede eliminar el director, esta siendo usado en otra tabla");
-                }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "deleteActorsConfirm"
+            )
+            )
+            { // Metodo que elimina un actor
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            {
+            int
+            id
+            =
+            Integer
+            .
+            parseInt
+            (
+            request
+            .
+            getParameter
+            (
+            "id"
+            )
+            )
+            ;
+            PreparedStatement
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "DELETE FROM people WHERE id = ?"
+            )
+            ;
+            preparedStatement
+            .
+            setInt
+            (
+            1
+            ,
+            id
+            )
+            ;
+            preparedStatement
+            .
+            executeUpdate
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
+            session
+            .
+            setAttribute
+            (
+            "message"
+            ,
+            "Actor eliminado correctamente"
+            )
+            ;
             }
-        } else if (action.equals("movieDetails")) { // Mostrar los detalles de una pelicula
+            catch
+            (
+            Exception
+            e
+            )
+            {
+            session
+            .
+            setAttribute
+            (
+            "message"
+            ,
+            "No se puede eliminar el actor, esta siendo usado en otra tabla"
+            )
+            ;
+            }
+            }
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "deleteDirectorsConfirm"
+            )
+            )
+            { // Metodo que elimina un director
+            int
+            id
+            =
+            Integer
+            .
+            parseInt
+            (
+            request
+            .
+            getParameter
+            (
+            "id"
+            )
+            )
+            ;
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            {
+            PreparedStatement
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "DELETE FROM direct WHERE idPerson = ?"
+            )
+            ;
+            preparedStatement
+            .
+            setInt
+            (
+            1
+            ,
+            id
+            )
+            ;
+            preparedStatement
+            .
+            executeUpdate
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
+            session
+            .
+            setAttribute
+            (
+            "message"
+            ,
+            "Director eliminado correctamente"
+            )
+            ;
+            }
+            catch
+            (
+            Exception
+            e
+            )
+            {
+            session
+            .
+            setAttribute
+            (
+            "message"
+            ,
+            "No se puede eliminar el director, esta siendo usado en otra tabla"
+            )
+            ;
+            }
+            }
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "movieDetails"
+            )
+            )
+            { // Mostrar los detalles de una pelicula
         %> <h1 style="text-align: center">Movie Details</h1> <%
-    } else if (action.equals("actorDetails")) { // Mostrar los detalles de una pelicula
+        }
+        else
+        if
+        (
+        action
+        .
+        equals
+        (
+        "actorDetails"
+        )
+        )
+        { // Mostrar los detalles de una pelicula
     %> <h1 style="text-align: center">Actor Details</h1> <%
         }
     %>
@@ -289,32 +661,183 @@
     <!-- Body -->
     <div id="cuerpoPeliiculas">
         <% // Mostrar peliculas
-            if (action == null) { // Si no hay accion muestro un mensaje de que se debe iniciar sesion
-                session.setAttribute("message", "Primero debes iniciar sesion");
-                response.sendRedirect("index.jsp");
-            } else if (action.equals("showMovies") || action.equals("addMovies") || action.equals("modifyMovie")) { // Mostrar peliculas
-                ConnectionModel connectionModel = new ConnectionModel();
-                Connection connection = connectionModel.getConnection();
-                if (connection != null) {
-                    try {
-                        PreparedStatement preparedStatement = null;
-                        if (action.equals("modifyMovie")) {
-                            int id = Integer.parseInt(request.getParameter("id"));
-                            preparedStatement = connection.prepareStatement("SELECT * FROM movies WHERE id = ?");
-                            preparedStatement.setInt(1, id);
-                        } else {
-                            preparedStatement = connection.prepareStatement("SELECT * FROM movies;");
-                        }
-                        ResultSet resultSet = preparedStatement.executeQuery();
-                        while (resultSet.next()) {
+            if
+            (
+            action
+            ==
+            null
+            )
+            { // Si no hay accion muestro un mensaje de que se debe iniciar sesion
+            session
+            .
+            setAttribute
+            (
+            "message"
+            ,
+            "Primero debes iniciar sesion"
+            )
+            ;
+            response
+            .
+            sendRedirect
+            (
+            "index.jsp"
+            )
+            ;
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "showMovies"
+            )
+            ||
+            action
+            .
+            equals
+            (
+            "addMovies"
+            )
+            ||
+            action
+            .
+            equals
+            (
+            "modifyMovie"
+            )
+            )
+            { // Mostrar peliculas
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            {
+            PreparedStatement
+            preparedStatement
+            =
+            null
+            ;
+            if
+            (
+            action
+            .
+            equals
+            (
+            "modifyMovie"
+            )
+            )
+            {
+            int
+            id
+            =
+            Integer
+            .
+            parseInt
+            (
+            request
+            .
+            getParameter
+            (
+            "id"
+            )
+            )
+            ;
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "SELECT * FROM movies WHERE id = ?"
+            )
+            ;
+            preparedStatement
+            .
+            setInt
+            (
+            1
+            ,
+            id
+            )
+            ;
+            }
+            else
+            {
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "SELECT * FROM movies;"
+            )
+            ;
+            }
+            ResultSet
+            resultSet
+            =
+            preparedStatement
+            .
+            executeQuery
+            (
+            )
+            ;
+            while
+            (
+            resultSet
+            .
+            next
+            (
+            )
+            )
+            {
         %>
         <div class="movie">
             <div class="info">
-                <h2 class="title"><%=resultSet.getString("title")%>
+                <h2 class="title"><%=resultSet
+                    .
+                    getString
+                    (
+                    "title"
+                    )%>
                 </h2>
-                <p class="year"><%=resultSet.getString("year")%>
+                <p class="year"><%=resultSet
+                    .
+                    getString
+                    (
+                    "year"
+                    )%>
                 </p>
-                <p class="duration"><%=resultSet.getString("duration")%> min</p>
+                <p class="duration"><%=resultSet
+                    .
+                    getString
+                    (
+                    "duration"
+                    )%> min</p>
                 <div class="option">
                     <a href="indexConten.jsp?action=movieDetails&id=<%=resultSet.getString("id")%>"><img
                             src="svg/view.svg"></a>
@@ -327,30 +850,136 @@
             <img src="<%=resultSet.getString("poster")%>" class="poster">
         </div>
         <%
-                    }
-                    resultSet.close();
-                    preparedStatement.close();
-                    connection.close();
-                } catch (Exception e) {
-                }
             }
-        } else if (action.equals("showActors") || action.equals("addActor")) { // Mostrar actores
-            ConnectionModel connectionModel = new ConnectionModel();
-            Connection connection = connectionModel.getConnection();
-            if (connection != null) {
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM people;");
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    while (resultSet.next()) {
+            resultSet
+            .
+            close
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
+            }
+            catch
+            (
+            Exception
+            e
+            )
+            {
+            }
+            }
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "showActors"
+            )
+            ||
+            action
+            .
+            equals
+            (
+            "addActor"
+            )
+            )
+            { // Mostrar actores
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            {
+            PreparedStatement
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "SELECT * FROM people;"
+            )
+            ;
+            ResultSet
+            resultSet
+            =
+            preparedStatement
+            .
+            executeQuery
+            (
+            )
+            ;
+            while
+            (
+            resultSet
+            .
+            next
+            (
+            )
+            )
+            {
         %>
         <div class="actor">
             <div class="info">
-                <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                <h2 class="name"><%=resultSet
+                    .
+                    getString
+                    (
+                    "firstname"
+                    )%> <%=resultSet
+                    .
+                    getString
+                    (
+                    "lastname"
+                    )%>
                 </h2>
                 <div class="info_act">
-                    <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                    <p class="yearOfBirth"><%=resultSet
+                        .
+                        getString
+                        (
+                        "yearOfBirth"
+                        )%>
                     </p>
-                    <p class="country"><%=resultSet.getString("country")%>
+                    <p class="country"><%=resultSet
+                        .
+                        getString
+                        (
+                        "country"
+                        )%>
                     </p>
                 </div>
                 <div class="option">
@@ -364,31 +993,137 @@
             <img src="<%=resultSet.getString("picture")%>" class="photo">
         </div>
         <%
-                    }
-                    resultSet.close();
-                    preparedStatement.close();
-                    connection.close();
-                } catch (Exception e) {
-
-                }
             }
-        } else if (action.equals("showDirectors") || action.equals("addDirect")) { // Mostrar los directores
-            ConnectionModel connectionModel = new ConnectionModel();
-            Connection connection = connectionModel.getConnection();
-            if (connection != null) {
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT people.* FROM people INNER JOIN direct ON people.id = direct.idPerson;");
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    while (resultSet.next()) {
+            resultSet
+            .
+            close
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
+            }
+            catch
+            (
+            Exception
+            e
+            )
+            {
+
+            }
+            }
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "showDirectors"
+            )
+            ||
+            action
+            .
+            equals
+            (
+            "addDirect"
+            )
+            )
+            { // Mostrar los directores
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            {
+            PreparedStatement
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "SELECT DISTINCT people.* FROM people INNER JOIN direct ON people.id = direct.idPerson;"
+            )
+            ;
+            ResultSet
+            resultSet
+            =
+            preparedStatement
+            .
+            executeQuery
+            (
+            )
+            ;
+            while
+            (
+            resultSet
+            .
+            next
+            (
+            )
+            )
+            {
         %>
         <div class="actor">
             <div class="info">
-                <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                <h2 class="name"><%=resultSet
+                    .
+                    getString
+                    (
+                    "firstname"
+                    )%> <%=resultSet
+                    .
+                    getString
+                    (
+                    "lastname"
+                    )%>
                 </h2>
                 <div class="info_act">
-                    <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                    <p class="yearOfBirth"><%=resultSet
+                        .
+                        getString
+                        (
+                        "yearOfBirth"
+                        )%>
                     </p>
-                    <p class="country"><%=resultSet.getString("country")%>
+                    <p class="country"><%=resultSet
+                        .
+                        getString
+                        (
+                        "country"
+                        )%>
                     </p>
                 </div>
                 <div class="option">
@@ -401,36 +1136,152 @@
             <img src="<%=resultSet.getString("picture")%>" class="photo">
         </div>
         <%
-                    }
-                    resultSet.close();
-                    preparedStatement.close();
-                    connection.close();
-                } catch (Exception e) {
-
-                }
             }
-        } else if (action.equals("movieDetails")) { // Mostrar los detalles de una pelicula7
-            int id = Integer.parseInt(request.getParameter("id"));
+            resultSet
+            .
+            close
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
+            }
+            catch
+            (
+            Exception
+            e
+            )
+            {
+
+            }
+            }
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "movieDetails"
+            )
+            )
+            { // Mostrar los detalles de una pelicula7
+            int
+            id
+            =
+            Integer
+            .
+            parseInt
+            (
+            request
+            .
+            getParameter
+            (
+            "id"
+            )
+            )
+            ;
             // Creo una conexion a la base de datos
-            ConnectionModel connectionModel = new ConnectionModel();
-            Connection connection = connectionModel.getConnection();
-            if (connection != null) {
-                try { // Obtengo los datos de la pelicula,
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM movies WHERE id = ?");
-                    preparedStatement.setInt(1, id);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()) {
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            { // Obtengo los datos de la pelicula,
+            PreparedStatement
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "SELECT * FROM movies WHERE id = ?"
+            )
+            ;
+            preparedStatement
+            .
+            setInt
+            (
+            1
+            ,
+            id
+            )
+            ;
+            ResultSet
+            resultSet
+            =
+            preparedStatement
+            .
+            executeQuery
+            (
+            )
+            ;
+            if
+            (
+            resultSet
+            .
+            next
+            (
+            )
+            )
+            {
         %>
         <div style="display: block">
             <div class="cuerpoPeliiculas">
                 <div class="movie">
                     <div class="info">
                         <h2 class="title"><%=
-                        resultSet.getString("title")%>
+                            resultSet
+                            .
+                            getString
+                            (
+                            "title"
+                            )%>
                         </h2>
-                        <p class="year"><%=resultSet.getString("year")%>
+                        <p class="year"><%=resultSet
+                            .
+                            getString
+                            (
+                            "year"
+                            )%>
                         </p>
-                        <p class="duration"><%=resultSet.getString("duration")%> min</p>
+                        <p class="duration"><%=resultSet
+                            .
+                            getString
+                            (
+                            "duration"
+                            )%> min</p>
                         <div class="option">
                             <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
                             <a href="indexConten.jsp?action=deleteMovie&id=<%=resultSet.getString("id")%>"><img
@@ -442,26 +1293,87 @@
             </div>
             <%
                 }
-                resultSet.close();
-                preparedStatement.close();
+                resultSet
+                .
+                close
+                (
+                )
+                ;
+                preparedStatement
+                .
+                close
+                (
+                )
+                ;
             %>
             <h2 style="text-align: center">Actors</h2>
             <% // Obtengo los actores de la pelicula
-                preparedStatement = connection.prepareStatement("SELECT people.* FROM people INNER JOIN act ON people.id = act.idPerson WHERE act.idMovie = ?");
-                preparedStatement.setInt(1, id);
-                resultSet = preparedStatement.executeQuery();
+                preparedStatement
+                =
+                connection
+                .
+                prepareStatement
+                (
+                "SELECT people.* FROM people INNER JOIN act ON people.id = act.idPerson WHERE act.idMovie = ?"
+                )
+                ;
+                preparedStatement
+                .
+                setInt
+                (
+                1
+                ,
+                id
+                )
+                ;
+                resultSet
+                =
+                preparedStatement
+                .
+                executeQuery
+                (
+                )
+                ;
             %>
             <div class="cuerpoPeliiculas"><%
-                while (resultSet.next()) {
+                while
+                (
+                resultSet
+                .
+                next
+                (
+                )
+                )
+                {
             %>
                 <div class="actor">
                     <div class="info">
-                        <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                        <h2 class="name"><%=resultSet
+                            .
+                            getString
+                            (
+                            "firstname"
+                            )%> <%=resultSet
+                            .
+                            getString
+                            (
+                            "lastname"
+                            )%>
                         </h2>
                         <div class="info_act">
-                            <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                            <p class="yearOfBirth"><%=resultSet
+                                .
+                                getString
+                                (
+                                "yearOfBirth"
+                                )%>
                             </p>
-                            <p class="country"><%=resultSet.getString("country")%>
+                            <p class="country"><%=resultSet
+                                .
+                                getString
+                                (
+                                "country"
+                                )%>
                             </p>
                         </div>
                         <div class="option">
@@ -476,25 +1388,86 @@
                 </div>
                 <%
                     }
-                    resultSet.close();
-                    preparedStatement.close();
+                    resultSet
+                    .
+                    close
+                    (
+                    )
+                    ;
+                    preparedStatement
+                    .
+                    close
+                    (
+                    )
+                    ;
                 %></div>
             <h2 style="text-align: center">Directors</h2>
             <div class="cuerpoPeliiculas">
                 <% // Obtengo los directores de la pelicula
-                    preparedStatement = connection.prepareStatement("SELECT people.* FROM people INNER JOIN direct ON people.id = direct.idPerson WHERE direct.idMovie = ?");
-                    preparedStatement.setInt(1, id);
-                    resultSet = preparedStatement.executeQuery();
-                    while (resultSet.next()) {
+                    preparedStatement
+                    =
+                    connection
+                    .
+                    prepareStatement
+                    (
+                    "SELECT people.* FROM people INNER JOIN direct ON people.id = direct.idPerson WHERE direct.idMovie = ?"
+                    )
+                    ;
+                    preparedStatement
+                    .
+                    setInt
+                    (
+                    1
+                    ,
+                    id
+                    )
+                    ;
+                    resultSet
+                    =
+                    preparedStatement
+                    .
+                    executeQuery
+                    (
+                    )
+                    ;
+                    while
+                    (
+                    resultSet
+                    .
+                    next
+                    (
+                    )
+                    )
+                    {
                 %>
                 <div class="actor">
                     <div class="info">
-                        <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                        <h2 class="name"><%=resultSet
+                            .
+                            getString
+                            (
+                            "firstname"
+                            )%> <%=resultSet
+                            .
+                            getString
+                            (
+                            "lastname"
+                            )%>
                         </h2>
                         <div class="info_act">
-                            <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                            <p class="yearOfBirth"><%=resultSet
+                                .
+                                getString
+                                (
+                                "yearOfBirth"
+                                )%>
                             </p>
-                            <p class="country"><%=resultSet.getString("country")%>
+                            <p class="country"><%=resultSet
+                                .
+                                getString
+                                (
+                                "country"
+                                )%>
                             </p>
                         </div>
                         <div class="option">
@@ -512,36 +1485,157 @@
             </div>
         </div>
         <%
-                    resultSet.close();
-                    preparedStatement.close();
-                    connection.close();
-                } catch (Exception e) {
-                }
+            resultSet
+            .
+            close
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
             }
-        } else if (action.equals("actorDetails")) { // Mostrar los detalles de un actor
-            int id = Integer.parseInt(request.getParameter("id"));
+            catch
+            (
+            Exception
+            e
+            )
+            {
+            }
+            }
+            }
+            else
+            if
+            (
+            action
+            .
+            equals
+            (
+            "actorDetails"
+            )
+            )
+            { // Mostrar los detalles de un actor
+            int
+            id
+            =
+            Integer
+            .
+            parseInt
+            (
+            request
+            .
+            getParameter
+            (
+            "id"
+            )
+            )
+            ;
             // Creo una conexion a la base de datos
-            ConnectionModel connectionModel = new ConnectionModel();
-            Connection connection = connectionModel.getConnection();
-            if (connection != null) {
-                try { // Obtengo los datos del actor
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM people WHERE id = ?");
-                    preparedStatement.setInt(1, id);
-                    ResultSet resultSet = preparedStatement.executeQuery();
+            ConnectionModel
+            connectionModel
+            =
+            new
+            ConnectionModel
+            (
+            )
+            ;
+            Connection
+            connection
+            =
+            connectionModel
+            .
+            getConnection
+            (
+            )
+            ;
+            if
+            (
+            connection
+            !=
+            null
+            )
+            {
+            try
+            { // Obtengo los datos del actor
+            PreparedStatement
+            preparedStatement
+            =
+            connection
+            .
+            prepareStatement
+            (
+            "SELECT * FROM people WHERE id = ?"
+            )
+            ;
+            preparedStatement
+            .
+            setInt
+            (
+            1
+            ,
+            id
+            )
+            ;
+            ResultSet
+            resultSet
+            =
+            preparedStatement
+            .
+            executeQuery
+            (
+            )
+            ;
         %>
         <div style="display: block">
             <div class="cuerpoPeliiculas">
                 <%
-                    if (resultSet.next()) {
+                    if
+                    (
+                    resultSet
+                    .
+                    next
+                    (
+                    )
+                    )
+                    {
                 %>
                 <div class="actor">
                     <div class="info">
-                        <h2 class="name"><%=resultSet.getString("firstname")%> <%=resultSet.getString("lastname")%>
+                        <h2 class="name"><%=resultSet
+                            .
+                            getString
+                            (
+                            "firstname"
+                            )%> <%=resultSet
+                            .
+                            getString
+                            (
+                            "lastname"
+                            )%>
                         </h2>
                         <div class="info_act">
-                            <p class="yearOfBirth"><%=resultSet.getString("yearOfBirth")%>
+                            <p class="yearOfBirth"><%=resultSet
+                                .
+                                getString
+                                (
+                                "yearOfBirth"
+                                )%>
                             </p>
-                            <p class="country"><%=resultSet.getString("country")%>
+                            <p class="country"><%=resultSet
+                                .
+                                getString
+                                (
+                                "country"
+                                )%>
                             </p>
                         </div>
                         <div class="option">
@@ -559,20 +1653,76 @@
             <h2 style="text-align: center">Movies</h2>
             <div class="cuerpoPeliiculas">
                 <%
-                    resultSet.close();
-                    preparedStatement.close();
-                    preparedStatement = connection.prepareStatement("SELECT movies.* FROM movies INNER JOIN act ON movies.id = act.idMovie WHERE act.idPerson = ?");
-                    preparedStatement.setInt(1, id);
-                    resultSet = preparedStatement.executeQuery();
-                    while (resultSet.next()) {
+                    resultSet
+                    .
+                    close
+                    (
+                    )
+                    ;
+                    preparedStatement
+                    .
+                    close
+                    (
+                    )
+                    ;
+                    preparedStatement
+                    =
+                    connection
+                    .
+                    prepareStatement
+                    (
+                    "SELECT movies.* FROM movies INNER JOIN act ON movies.id = act.idMovie WHERE act.idPerson = ?"
+                    )
+                    ;
+                    preparedStatement
+                    .
+                    setInt
+                    (
+                    1
+                    ,
+                    id
+                    )
+                    ;
+                    resultSet
+                    =
+                    preparedStatement
+                    .
+                    executeQuery
+                    (
+                    )
+                    ;
+                    while
+                    (
+                    resultSet
+                    .
+                    next
+                    (
+                    )
+                    )
+                    {
                 %>
                 <div class="movie">
                     <div class="info">
-                        <h2 class="title"><%=resultSet.getString("title")%>
+                        <h2 class="title"><%=resultSet
+                            .
+                            getString
+                            (
+                            "title"
+                            )%>
                         </h2>
-                        <p class="year"><%=resultSet.getString("year")%>
+                        <p class="year"><%=resultSet
+                            .
+                            getString
+                            (
+                            "year"
+                            )%>
                         </p>
-                        <p class="duration"><%=resultSet.getString("duration")%> min</p>
+                        <p class="duration"><%=resultSet
+                            .
+                            getString
+                            (
+                            "duration"
+                            )%> min</p>
                         <div class="option">
                             <a href="indexConten.jsp?action=movieDetails&id=<%=resultSet.getString("id")%>"><img
                                     src="svg/view.svg"></a>
@@ -589,12 +1739,33 @@
             </div>
         </div>
         <%
-                        resultSet.close();
-                        preparedStatement.close();
-                        connection.close();
-                    } catch (Exception e) {
-                    }
-                }
+            resultSet
+            .
+            close
+            (
+            )
+            ;
+            preparedStatement
+            .
+            close
+            (
+            )
+            ;
+            connection
+            .
+            close
+            (
+            )
+            ;
+            }
+            catch
+            (
+            Exception
+            e
+            )
+            {
+            }
+            }
 
             }
         %>
