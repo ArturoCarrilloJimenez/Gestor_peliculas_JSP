@@ -443,7 +443,7 @@
                         </p>
                         <p class="duration"><%=resultSet.getString("duration")%> min</p>
                         <div class="option">
-                            <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
+                            <a href="indexConten.jsp?action=modifyMovie&id=<%=resultSet.getString("id")%>"><img src="svg/edit.svg"></a>
                             <a href="indexConten.jsp?action=deleteMovie&id=<%=resultSet.getString("id")%>"><img
                                     src="svg/delete.svg"></a>
                         </div>
@@ -588,7 +588,7 @@
                             <a href="indexConten.jsp?action=movieDetails&id=<%=resultSet.getString("id")%>"><img
                                     src="svg/view.svg"></a>
                             <a href="indexConten.jsp?action=enDesarrollo"><img src="svg/edit.svg"></a>
-                            <a href="indexConten.jsp?action=enDesarrollo>"><img
+                            <a href="indexConten.jsp?action=enDesarrollo"><img
                                     src="svg/delete.svg"></a>
                         </div>
                     </div>
